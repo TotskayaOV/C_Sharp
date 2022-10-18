@@ -1,24 +1,53 @@
 ﻿// Задайте одномерный массив, заполненный случайными числами. Найдите сумму элементов, стоящих на нечётных позициях.
 
 Console.Clear();
-int[] array = new int[4];
-
+int size = GetNumberFromUser("Введите размер массива: ", "Ошибка ввода!");
+int minValue = GetNumberFromUser("Введите минимальное значение массива: ", "Ошибка ввода!");
+int maxValue = GetNumberFromUser("Введите максимальное значение массива: ", "Ошибка ввода!");
+int[] array = GetArray(size, minValue, maxValue);      
+int summ = SummNumArray(array);
 Console.Write("[ ");
-for (int i = 0; i < array.Length; i++)
+PrintArray(array);  
+Console.Write($"] -> {summ}");
+
+void PrintArray(int[] array)        //метод вывода массива
 {
-    array[i] = new Random().Next(-100, 100);
+    for (int i = 0; i < array.Length; i++)
+    {
+        Console.Write(array[i] + " ");
+    }
 }
 
-for (int i = 0; i < array.Length; i++)
+int[] GetArray(int size, int minValue, int maxValue)        //метод создания массива
 {
-    Console.Write($"{array[i]} ");
-}
-Console.Write("]");
+    int[] res = new int[size];
 
-int summ = 0;
-for (int i = 1; i < array.Length; i=i+2)
+    for (int i = 0; i < size; i++)
+    {
+        res[i] = new Random().Next(minValue, maxValue+1);
+    }
+
+    return res;
+}
+
+int GetNumberFromUser(string message, string errorMessage)  //метод ввода числа
 {
-    summ = summ + array[i];
+    while(true)     
+    {
+        Console.Write(message);
+        bool isCorrect = int.TryParse(Console.ReadLine(), out int userNumber);
+        if(isCorrect)       
+            return userNumber;
+        Console.WriteLine(errorMessage);
+    }
 }
 
-Console.Write($" -> {summ}");
+int SummNumArray(int[] array)       //метод нахождения суммы
+{
+    int summ = 0;
+    for (int i = 0; i < array.Length; i=i+2)
+    {
+        summ = summ + array[i];
+    }
+    return summ;
+}
