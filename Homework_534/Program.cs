@@ -2,29 +2,58 @@
 //[345, 897, 568, 234] -> 2
 
 Console.Clear();
-int[] array = new int[4];
-
+int size = GetNumberFromUser("Введите размер массива: ", "Ошибка ввода!");
+int[] array = GetArray(size);
+int count = CountArray(array);
 Console.Write("[ ");
-for (int i = 0; i < array.Length; i++)
-{
-    array[i] = new Random().Next(99, 1000);
-}
+PrintArray(array);
+Console.Write($"] -> {count}");
 
-for (int i = 0; i < array.Length; i++)
-{
-    Console.Write($"{array[i]} ");
-}
-Console.Write("]");
 
-int count = 0;
-int j = 0;
-while (j < array.Length)
+void PrintArray(int[] array)        //метод вывода массива
 {
-    int x = array[j] % 2;
-    if(x == 0)
+    for (int i = 0; i < array.Length; i++)
     {
-        count++;
+        Console.Write(array[i] + " ");
     }
-    j++;
 }
-Console.Write($" -> {count}");
+
+int GetNumberFromUser(string message, string errorMessage)  //метод ввода числа
+{
+    while(true)     
+    {
+        Console.Write(message);
+        bool isCorrect = int.TryParse(Console.ReadLine(), out int userNumber);
+        if(isCorrect)       
+            return userNumber;
+        Console.WriteLine(errorMessage);
+    }
+}
+
+int[] GetArray(int size)        //метод создания массива
+{
+    int[] res = new int[size];
+
+    for (int i = 0; i < size; i++)
+    {
+        res[i] = new Random().Next(100, 1000);
+    }
+
+    return res;
+}
+
+int CountArray(int[] array)     //вычисление количества четных чисел
+{
+    int count = 0;
+    int j = 0;
+    while (j < array.Length)
+    {
+        int x = array[j] % 2;
+        if(x == 0)
+        {
+            count++;
+        }
+        j++;
+    }
+    return count;
+}
