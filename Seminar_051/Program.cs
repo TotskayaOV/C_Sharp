@@ -3,15 +3,20 @@
 
 int[] array = GetArray(12, -9, 9);      //создание пустого массива с диапозоном заданных значений
 
-for (int i = 0; i < array.Length; i++)  //вывод массива
-{
-    Console.Write(array[i] + " ");
-}
+PrintArray(array);  //вывод массива
 
 int negativeSum = GetNegativeSum(array);
 Console.WriteLine($"\nСумма отрицательных чисел массива равна {negativeSum}");
 int positiveSum = GetPositiveSum(array);
 Console.WriteLine($"Сумма положительных чисел массива равна {positiveSum}"); //убрано \n чтобы не было пробела между строками
+
+void PrintArray(int[] array)        //метод вывода массива
+{
+    for (int i = 0; i < array.Length; i++)
+    {
+        Console.Write(array[i] + " ");
+    }
+}
 
 int GetNegativeSum(int[] array)     //метод суммирования отрицательных значений
 {
